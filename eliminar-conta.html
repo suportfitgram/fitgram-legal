@@ -1,0 +1,305 @@
+<title>Eliminar Conta Fitgram</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    /* Layout: centered single-column document, generous top padding for a small
+       app-mark header, numbered steps as the focal block */
+    --bg: #F7F8FB;
+    --surface: #FFFFFF;
+    --border: #E5E7EB;
+    --ink: #111318;
+    --muted: #6B7280;
+    --accent: #5865F2;
+    --accent-ink: #FFFFFF;
+    --warn-bg: #FEF2F2;
+    --warn-border: #FCA5A5;
+    --warn-ink: #B42318;
+    --font-display: 'Sora', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B0C10;
+      --surface: #15171D;
+      --border: #262A33;
+      --ink: #F3F4F6;
+      --muted: #9AA1AE;
+      --accent: #7C8CFF;
+      --accent-ink: #0B0C10;
+      --warn-bg: #2A1414;
+      --warn-border: #5B2323;
+      --warn-ink: #FCA5A5;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B0C10;
+    --surface: #15171D;
+    --border: #262A33;
+    --ink: #F3F4F6;
+    --muted: #9AA1AE;
+    --accent: #7C8CFF;
+    --accent-ink: #0B0C10;
+    --warn-bg: #2A1414;
+    --warn-border: #5B2323;
+    --warn-ink: #FCA5A5;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 48px 20px 64px;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .mark-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent); color: var(--accent-ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 17px;
+    flex-shrink: 0;
+  }
+  .mark-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 16px;
+    letter-spacing: 0.2px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(26px, 5vw, 34px);
+    line-height: 1.15;
+    text-wrap: balance;
+    margin: 0 0 10px;
+  }
+  .lede {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 36px;
+    max-width: 50ch;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 40px 0 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 22px 6px;
+  }
+
+  ol.steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+  }
+  ol.steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    padding: 0 0 20px;
+    position: relative;
+  }
+  ol.steps li::before {
+    content: counter(step);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  ol.steps li .step-body { padding-top: 2px; }
+  ol.steps li strong { font-weight: 600; }
+  ol.steps li .path {
+    display: inline-block;
+    font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    font-size: 12.5px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 7px;
+    margin-top: 6px;
+    color: var(--muted);
+  }
+
+  .notice {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 14px;
+    color: var(--warn-ink);
+    margin: 0 0 8px;
+  }
+  .notice strong { display: block; margin-bottom: 4px; font-size: 13.5px; letter-spacing: 0.2px; }
+
+  .data-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-row:last-child { border-bottom: none; }
+  .data-row .what { font-weight: 600; font-size: 14.5px; }
+  .data-row .result { color: var(--muted); font-size: 13.5px; text-align: right; flex-shrink: 0; }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+  }
+  .contact .label { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+  .contact .email {
+    font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  .copy-btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: none;
+    border-radius: 9px;
+    padding: 9px 16px;
+    cursor: pointer;
+  }
+  .copy-btn:active { opacity: 0.85; }
+
+  footer {
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+</style>
+
+<div class="page">
+  <div class="mark">
+    <div class="mark-badge">F</div>
+    <div class="mark-name">Fitgram</div>
+  </div>
+
+  <h1>Como eliminar a tua conta</h1>
+  <p class="lede">Podes apagar permanentemente a tua conta Fitgram e todos os dados associados diretamente dentro da app, em menos de um minuto.</p>
+
+  <h2>Passos dentro da app</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          Abre a app <strong>Fitgram</strong> e inicia sessão com a conta que queres eliminar.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          Vai à aba <strong>Perfil</strong> e toca no ícone de definições (⚙) no canto superior.
+          <span class="path">Perfil → Definições</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          Desliza até à secção de <strong>Suporte</strong> e toca em <strong>"Eliminar conta"</strong>.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          Escreve a palavra de confirmação pedida no ecrã e toca em confirmar. A conta é eliminada de imediato.
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <h2>O que acontece aos teus dados</h2>
+  <div class="card">
+    <div class="data-grid">
+      <div class="data-row">
+        <span class="what">Perfil, publicações, comentários e mensagens</span>
+        <span class="result">Eliminados de imediato</span>
+      </div>
+      <div class="data-row">
+        <span class="what">Histórico de treinos, planos e progresso</span>
+        <span class="result">Eliminados de imediato</span>
+      </div>
+      <div class="data-row">
+        <span class="what">Seguidores, a seguir e pedidos pendentes</span>
+        <span class="result">Eliminados de imediato</span>
+      </div>
+      <div class="data-row">
+        <span class="what">Fotos e vídeos enviados</span>
+        <span class="result">Eliminados de imediato</span>
+      </div>
+    </div>
+  </div>
+  <div class="notice" style="margin-top:14px">
+    <strong>Isto não pode ser desfeito</strong>
+    Depois de confirmares, não há forma de recuperar a conta nem os dados. Nada fica retido.
+  </div>
+
+  <h2>Não consegues aceder à app?</h2>
+  <div class="card contact">
+    <div>
+      <div class="label">Pede a eliminação por email</div>
+      <div class="email" id="support-email">Suportfitgram@gmail.com</div>
+    </div>
+    <button class="copy-btn" onclick="copyEmail()">Copiar email</button>
+  </div>
+
+  <footer>Fitgram — pedido de eliminação de conta.</footer>
+</div>
+
+<script>
+function copyEmail() {
+  var email = document.getElementById('support-email').textContent;
+  var btn = document.querySelector('.copy-btn');
+  var original = btn.textContent;
+  function done() { btn.textContent = 'Copiado!'; setTimeout(function(){ btn.textContent = original; }, 1500); }
+  try {
+    navigator.clipboard.writeText(email).then(done).catch(function(){
+      var r = document.createRange(); r.selectNode(document.getElementById('support-email'));
+      window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+      done();
+    });
+  } catch (e) {
+    var r = document.createRange(); r.selectNode(document.getElementById('support-email'));
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+    done();
+  }
+}
+</script>
